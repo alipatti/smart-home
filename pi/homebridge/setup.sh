@@ -1,10 +1,3 @@
-# --------------
-# GENERAL SETUP
-# --------------
-
-# update apt
-sudo apt-get update
-
 # ----------------
 # HOMEBRIDGE SETUP
 # ----------------
@@ -18,12 +11,5 @@ curl -sSfL https://repo.homebridge.io/KEY.gpg | sudo gpg --dearmor | sudo tee /u
 echo "deb [signed-by=/usr/share/keyrings/homebridge.gpg] https://repo.homebridge.io stable main" | sudo tee /etc/apt/sources.list.d/homebridge.list >/dev/null
 
 # Install Homebridge:
+sudo apt-get update
 sudo apt-get install homebridge
-
-# --------------
-# SPOTIFYD SETUP
-# --------------
-
-sudo apt-get install spotifyd
-
-# TODO configure spotifyd

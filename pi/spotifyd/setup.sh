@@ -2,7 +2,6 @@
 # SPOTIFYD SETUP
 # --------------
 
-
 sudo -v # validate as sudo
 
 echo "Enter your Spotify credentials."
@@ -14,18 +13,17 @@ read -p 'Speaker name: ' SPEAKER_NAME
 
 echo "Installing spotifyd..."
 wget "https://github.com/Spotifyd/spotifyd/releases/download/v0.3.4/spotifyd-linux-armv6-slim.tar.gz" && # download
-    tar xzf spotifyd-linux-armv6*.tar.gz &&                                                                         # unpack
+    tar xzf spotifyd-linux-armv6*.tar.gz &&                                                              # unpack
     sudo cp ./spotifyd /usr/bin/spotifyd                                                                 # add to bin
 
 echo "Creating launch service..."
 # create launch service file
-sudo touch /etc/systemd/user/spotifyd.service 
-curl "https://raw.githubusercontent.com/Spotifyd/spotifyd/master/contrib/spotifyd.service" | sudo tee /etc/systemd/user/spotifyd.service 
+sudo touch /etc/systemd/user/spotifyd.service
+curl "https://raw.githubusercontent.com/Spotifyd/spotifyd/master/contrib/spotifyd.service" | sudo tee /etc/systemd/user/spotifyd.service
 
 # enable launch service at launch
 sudo loginctl enable-linger $(whoami)
 systemctl --user enable spotifyd.service
-
 
 echo "Creating configuration file..."
 # create config file
