@@ -38,4 +38,4 @@ rm spotifyd
 echo "Starting spotifyd..."
 systemctl --user start spotifyd.service
 
-echo "done!"
+echo "Done!"
