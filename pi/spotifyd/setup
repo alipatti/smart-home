@@ -1,15 +1,12 @@
+#! usr/bin/env bash
+
 # --------------
 # SPOTIFYD SETUP
 # --------------
 
 sudo -v # validate as sudo
 
-echo "Enter your Spotify credentials."
-read -p 'Username: ' SPOTIFY_USERNAME
-read -sp 'Password: ' SPOTIFY_PASSWORD
-
-echo "Enter the name for your speaker."
-read -p 'Speaker name: ' SPEAKER_NAME
+read -p "Enter your spotify password: " SPOTIFY_PASSWORD
 
 echo "Installing spotifyd..."
 wget "https://github.com/Spotifyd/spotifyd/releases/download/v0.3.4/spotifyd-linux-armv6-slim.tar.gz" && # download
@@ -27,15 +24,12 @@ systemctl --user enable spotifyd.service
 
 echo "Creating configuration file..."
 # create config file
-CONFIG_FILE=~/.config/spotifyd/spotifyd.conf
 mkdir -p ~/.config/spotifyd/
-touch $CONFIG_FILE
+touch ~/.config/spotifyd/spotifyd.conf
 
-# write to the file
-printf "[global]\n" >$CONFIG_FILE
-printf "username = \"$SPOTIFY_USERNAME\"\n" >>$CONFIG_FILE # spotify username
-printf "password = \"$SPOTIFY_PASSWORD\"\n" >>$CONFIG_FILE # spotify password
-printf "device_name = \"$SPEAKER_NAME\"\n" >>$CONFIG_FILE  # name shown in spotify connect menu
+# copy config file with password inserted
+printf "$(cat ./spotifyd/spotifyd.conf)" $SPOTIFY_PASSWORD > \
+    ~/.config/spotifyd/spotifyd.conf
 
 echo "Cleaning up..."
 rm spotifyd-linux-armv6*
